@@ -134,9 +134,9 @@
 #define ADS1299_REGDEFAULT_CONFIG3				0xEC
 #define	ADS1299_REGDEFAULT_LOFF		 				0x02			///< Lead-off control register. Controls lead-off frequency, magnitude, and threshold.
 #define	ADS1299_REGDEFAULT_CH1SET		 			0x60			///< Channel 1 settings register. Controls channel 1 input mux, gain, and power-down.
-#define	ADS1299_REGDEFAULT_CH2SET		 			0x60			///<
-#define	ADS1299_REGDEFAULT_CH3SET		 			0x60
-#define	ADS1299_REGDEFAULT_CH4SET		 			0x60
+#define	ADS1299_REGDEFAULT_CH2SET		 			0x60			///< Channel 2
+#define	ADS1299_REGDEFAULT_CH3SET		 			0x60			///< Channel 3
+#define	ADS1299_REGDEFAULT_CH4SET		 			0xF1			///< Channels 4-8 Disabled channel setting. 
 #define	ADS1299_REGDEFAULT_CH5SET		 			0xF1
 #define	ADS1299_REGDEFAULT_CH6SET		 			0xF1
 #define	ADS1299_REGDEFAULT_CH7SET		 			0xF1

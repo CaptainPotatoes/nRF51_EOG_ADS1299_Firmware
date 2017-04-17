@@ -67,13 +67,13 @@
 #define CENTRAL_LINK_COUNT               0                                          /**< Number of central links used by the application. When changing this number remember to adjust the RAM settings*/
 #define PERIPHERAL_LINK_COUNT            1                                          /**< Number of peripheral links used by the application. When changing this number remember to adjust the RAM settings*/
 			/**@DEVICE INFO*/
-#define DEVICE_NAME                      "EEG 250Hz"                      	    /**< Name of device. Will be included in the advertising data. */
-#define DEVICE_NAME_500									 "EEG 500Hz" 
-#define DEVICE_NAME_1000								 "EEG 1000Hz"
-#define DEVICE_ERROR										 "EEG Other"
+#define DEVICE_NAME                      "EOG 250Hz"                      	    /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME_500									 "EOG 500Hz" 
+#define DEVICE_NAME_1000								 "EOG 1000Hz"
+#define DEVICE_ERROR										 "EOG Other"
 #define MANUFACTURER_NAME                "VCU-YEO-SeniorDesign"                      				/**< Manufacturer. Will be passed to Device Information Service. */
 #define DEVICE_MODEL_NUMBERSTR					 "Version 3.1"
-#define DEVICE_FIRMWARE_STRING					 "Version 2.0"
+#define DEVICE_FIRMWARE_STRING					 "Version 2.1"
 			/**@ADVERTISING INITIALIZATION: */
 #define APP_ADV_INTERVAL                 300                                        /**< The advertising interval (in units of 0.625 ms. This value corresponds to 25 ms). */
 #define APP_ADV_TIMEOUT_IN_SECONDS       0                                        /**< The advertising timeout in units of seconds. */
@@ -786,7 +786,7 @@ int main(void)
 					//Acquire Data Samples
 					get_eeg_voltage_samples(&eeg1, &eeg2, &eeg3, &eeg4);
 					//Send 32-bit data samples to be organized into buffer 
-					ble_eeg_update(&m_eeg, &eeg1, &eeg2, &eeg3, &eeg4);				
+					ble_eeg_update(&m_eeg, &eeg1, &eeg2, &eeg3);				
 				}
         power_manage();
     }
