@@ -244,49 +244,6 @@ static uint32_t eeg_ch2_char_add(ble_eeg_t * p_eeg)
 		//SET UP LIKE IN MPU EXAMPLE
 }
 
-static uint32_t eeg_ch3_char_add(ble_eeg_t * p_eeg)
-{
-		uint32_t err_code = 0;
-		ble_uuid_t	 						char_uuid;
-		uint8_t             encoded_initial_eeg[MAX_LEN_BLE_PACKET_BYTES];
-		BLE_UUID_BLE_ASSIGN(char_uuid, BLE_UUID_EEG_CH3_CHAR);
-	
-		ble_gatts_char_md_t char_md;
-	
-		memset(&char_md, 0, sizeof(char_md));
-		char_md.char_props.read = 1;
-		char_md.char_props.write = 0;
-		
-		ble_gatts_attr_md_t cccd_md;
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.read_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&cccd_md.write_perm);
-    cccd_md.vloc                = BLE_GATTS_VLOC_STACK;    
-    char_md.p_cccd_md           = &cccd_md;
-    char_md.char_props.notify   = 1;
-		ble_gatts_attr_md_t attr_md;
-    memset(&attr_md, 0, sizeof(attr_md));
-    attr_md.vloc = BLE_GATTS_VLOC_STACK;    
-    attr_md.vlen = 1;
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.read_perm);
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&attr_md.write_perm);
-		
-		ble_gatts_attr_t    attr_char_value;
-    memset(&attr_char_value, 0, sizeof(attr_char_value));
-    attr_char_value.p_uuid      = &char_uuid;
-    attr_char_value.p_attr_md   = &attr_md;
-		attr_char_value.init_len		= bvm_encode_24(p_eeg, encoded_initial_eeg, 3);
-		attr_char_value.init_offs		= 0;
-		attr_char_value.max_len			= MAX_LEN_BLE_PACKET_BYTES;
-		attr_char_value.p_value   	= encoded_initial_eeg;
-		err_code = sd_ble_gatts_characteristic_add(p_eeg->service_handle,
-																							&char_md,
-																							&attr_char_value,
-																							&p_eeg->eeg_ch3_handles);
-    APP_ERROR_CHECK(err_code);   
-
-    return NRF_SUCCESS;
-		//SET UP LIKE IN MPU EXAMPLE
-}
 
 /**@brief Function for initiating our new service.
  *
@@ -312,13 +269,11 @@ void ble_eeg_service_init(ble_eeg_t *p_eeg) {
 		/*ADD CHARACTERISTIC(S)*/
 		eeg_ch1_char_add(p_eeg);
 		eeg_ch2_char_add(p_eeg);
-		eeg_ch3_char_add(p_eeg);
-		//eeg_ch4_char_add(p_eeg);
 }
 #if defined(ADS1299)
 /**@Update adds single int16_t voltage value: */
 
-void ble_eeg_update(ble_eeg_t *p_eeg, int32_t *eeg, int32_t *eeg2, int32_t *eeg3) {
+void ble_eeg_update(ble_eeg_t *p_eeg, int32_t *eeg, int32_t *eeg2) {
 		// CH1
 		ble_gatts_value_t gatts_value_ch1;
 		// Initialize value struct.
@@ -342,23 +297,10 @@ void ble_eeg_update(ble_eeg_t *p_eeg, int32_t *eeg, int32_t *eeg2, int32_t *eeg3
 		if(p_eeg->eeg_ch2_count == BLE_EEG_MAX_BUFFERED_MEASUREMENTS) {
 				ble_eeg_send_24bit_array_ch2(p_eeg);
 		}
-		//Ch3
-		ble_gatts_value_t gatts_value_ch3;
-		memset(&gatts_value_ch3, 0, sizeof(gatts_value_ch3));
-		gatts_value_ch3.len     = sizeof(uint16_t) + sizeof(uint8_t);
-		gatts_value_ch3.offset  = 0;
-		gatts_value_ch3.p_value = (uint8_t*)eeg3;
-		
-		
-		p_eeg->eeg_ch3_buffer[p_eeg->eeg_ch3_count++] = *eeg3;
-		if(p_eeg->eeg_ch3_count == BLE_EEG_MAX_BUFFERED_MEASUREMENTS) {
-				ble_eeg_send_24bit_array_ch3(p_eeg);
-		}
-		
+
 		//Initialize gatts buffer for each channel
 		sd_ble_gatts_value_set(p_eeg->conn_handle, p_eeg->eeg_ch1_handles.value_handle, &gatts_value_ch1);
 		sd_ble_gatts_value_set(p_eeg->conn_handle, p_eeg->eeg_ch2_handles.value_handle, &gatts_value_ch2);
-		sd_ble_gatts_value_set(p_eeg->conn_handle, p_eeg->eeg_ch3_handles.value_handle, &gatts_value_ch3);
 }
 
 uint32_t ble_eeg_send_24bit_array_ch1 (ble_eeg_t *p_eeg) {

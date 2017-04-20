@@ -127,8 +127,7 @@ void ble_eeg_on_ble_evt(ble_eeg_t * p_eeg, ble_evt_t * p_ble_evt);
 /**@brief function for updating/notifying BLE of new value.
 *
 */
-void ble_eeg_update (ble_eeg_t *p_eeg, int32_t *eeg1, int32_t *eeg2, int32_t *eeg3);
-//void ble_eeg_update (ble_eeg_t *p_eeg, int32_t *eeg1, int32_t *eeg2, int32_t *eeg3, int32_t *eeg4);
+void ble_eeg_update(ble_eeg_t *p_eeg, int32_t *eeg, int32_t *eeg2);
 
 uint32_t ble_eeg_send_24bit_array_ch1 (ble_eeg_t *p_eeg);
 

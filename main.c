@@ -784,9 +784,8 @@ int main(void)
 				if(m_drdy) {
 					m_drdy = false;
 					//Acquire Data Samples
-					get_eeg_voltage_samples(&eeg1, &eeg2, &eeg3, &eeg4);
-					//Send 32-bit data samples to be organized into buffer 
-					ble_eeg_update(&m_eeg, &eeg1, &eeg2, &eeg3);				
+					get_eeg_voltage_samples(&eeg1, &eeg2, &eeg3, &eeg4); //Send 32-bit data samples to be organized into buffer 
+					ble_eeg_update(&m_eeg, &eeg1, &eeg2);
 				}
         power_manage();
     }
