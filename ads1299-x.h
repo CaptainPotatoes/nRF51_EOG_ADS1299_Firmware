@@ -132,7 +132,7 @@
 #define	ADS1299_REGDEFAULT_CONFIG1		 		0xB6			///< Configuration register 1. Controls conversion mode and data rate.
 #define	ADS1299_REGDEFAULT_CONFIG2		 		0xD2			///< Configuration register 2. Controls LOFF comparator, reference, CLK pin, and test signal.
 #define ADS1299_REGDEFAULT_CONFIG3				0xEC
-#define	ADS1299_REGDEFAULT_LOFF		 				0x02			///< Lead-off control register. Controls lead-off frequency, magnitude, and threshold.
+#define	ADS1299_REGDEFAULT_LOFF		 				0x00			///< Lead-off control register. Controls lead-off frequency, magnitude, and threshold.
 #define	ADS1299_REGDEFAULT_CH1SET		 			0x60			///< Channel 1 settings register. Controls channel 1 input mux, gain, and power-down.
 #define	ADS1299_REGDEFAULT_CH2SET		 			0x60			///< Channel 2
 #define	ADS1299_REGDEFAULT_CH3SET		 			0xF1			///< Channels 3-8 Disabled channel setting. 
@@ -141,15 +141,15 @@
 #define	ADS1299_REGDEFAULT_CH6SET		 			0xF1
 #define	ADS1299_REGDEFAULT_CH7SET		 			0xF1
 #define	ADS1299_REGDEFAULT_CH8SET		 			0xF1
-#define	ADS1299_REGDEFAULT_BIAS_SENSP	 		0x0F			///<
-#define	ADS1299_REGDEFAULT_BIAS_SENSN	 		0x00
+#define	ADS1299_REGDEFAULT_BIAS_SENSP	 		0x03			///<
+#define	ADS1299_REGDEFAULT_BIAS_SENSN	 		0x03			///<
 #define	ADS1299_REGDEFAULT_LOFF_SENSP	 		0x00			///<
 #define	ADS1299_REGDEFAULT_LOFF_SENSN	 		0x00
 #define	ADS1299_REGDEFAULT_LOFF_FLIP	 		0x00
 #define	ADS1299_REGDEFAULT_LOFF_STATP 		0x00			///<
 #define	ADS1299_REGDEFAULT_LOFF_STATN	 		0x00
 #define	ADS1299_REGDEFAULT_GPIO		 				0x0F			///<
-#define	ADS1299_REGDEFAULT_MISC1		 			0x20			///<
+#define	ADS1299_REGDEFAULT_MISC1		 			0x00			///<
 #define	ADS1299_REGDEFAULT_MISC2		 			0x00			///<
 #define ADS1299_REGDEFAULT_CONFIG4				0x00
 
@@ -200,6 +200,7 @@ void ads1299_start_rdatac(void);
 
 void ads1299_check_id(void);
 
+//void get_eeg_voltage_samples (int32_t *eeg1, int32_t *eeg2);
 void get_eeg_voltage_samples (int32_t *eeg1, int32_t *eeg2, int32_t *eeg3, int32_t *eeg4);
 
 

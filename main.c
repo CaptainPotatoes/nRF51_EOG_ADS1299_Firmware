@@ -449,8 +449,8 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
 						nrf_gpio_pin_set(13);
 					#endif
 					#if defined(BOARD_FULL_EEG_V1)
-						nrf_gpio_pin_clear(3);
-						nrf_gpio_pin_set(2);
+						nrf_gpio_pin_clear(2);
+						nrf_gpio_pin_set(3);
 					#endif
             m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
             break;
@@ -463,8 +463,8 @@ static void on_ble_evt(ble_evt_t * p_ble_evt)
 						nrf_gpio_pin_clear(13);
 				#endif
 				#if defined(BOARD_FULL_EEG_V1)
-						nrf_gpio_pin_clear(2);
-						nrf_gpio_pin_set(3);
+						nrf_gpio_pin_clear(3);
+						nrf_gpio_pin_set(2);
 				#endif
             m_conn_handle = BLE_CONN_HANDLE_INVALID;
             break;
@@ -695,6 +695,8 @@ static void ads1299_gpio_init(void) {
 	#if defined(BOARD_FULL_EEG_V1)
 		nrf_gpio_cfg_output(3);
 		nrf_gpio_cfg_output(2);
+		nrf_gpio_pin_set(2);
+		nrf_gpio_pin_set(3);
 	#endif
 	#if defined(BOARD_NRF_BREAKOUT) | defined(BOARD_PCA10028)
 		nrf_gpio_pin_dir_set(ADS1299_DRDY_PIN, NRF_GPIO_PIN_DIR_INPUT); //sets 'direction' = input/output
@@ -776,8 +778,8 @@ int main(void)
 			nrf_gpio_pin_set(14);
 		#endif
 		#if defined(BOARD_FULL_EEG_V1) //Board Ready, (GreenLight)
-			nrf_gpio_pin_clear(2);
-			nrf_gpio_pin_set(3);
+			nrf_gpio_pin_clear(3);
+			nrf_gpio_pin_set(2);
 		#endif
     // Enter main loop.
     for (;;) {

@@ -331,7 +331,26 @@ void get_eeg_voltage_samples (int32_t *eeg1, int32_t *eeg2, int32_t *eeg3, int32
 		//NRF_LOG_PRINTF("B0-2 = [0x%x 0x%x 0x%x | cnt=%d]\r\n",tx_rx_data[0],tx_rx_data[1],tx_rx_data[2],cnt);
 		//NRF_LOG_PRINTF("DATA:[0x%x 0x%x 0x%x 0x%x]\r\n",*eeg1,*eeg2,*eeg3,*eeg4);
 }
-
+/*
+void get_eeg_voltage_samples (int32_t *eeg1, int32_t *eeg2) {
+		uint8_t tx_rx_data[9] = {0x00, 0x00, 0x00,
+														0x00, 0x00, 0x00,
+														0x00, 0x00, 0x00,};
+		nrf_drv_spi_transfer(&spi, tx_rx_data, 9, tx_rx_data, 9);
+		uint8_t cnt = 0;
+		do {
+			if(tx_rx_data[0]==0xC0){
+				*eeg1 =  ( (tx_rx_data[3] << 16) | (tx_rx_data[4] << 8) | (tx_rx_data[5]) );					
+				*eeg2 =  ( (tx_rx_data[6] << 16) | (tx_rx_data[7] << 8) | (tx_rx_data[8]) );
+				break;
+			}
+			cnt++;
+			nrf_delay_us(1);
+		} while(cnt<255);
+		//NRF_LOG_PRINTF("B0-2 = [0x%x 0x%x 0x%x | cnt=%d]\r\n",tx_rx_data[0],tx_rx_data[1],tx_rx_data[2],cnt);
+		//NRF_LOG_PRINTF("DATA:[0x%x 0x%x]\r\n",*eeg1,*eeg2);
+}
+*/
 // // // // // //
 // End of File //
 // // // // // // 
